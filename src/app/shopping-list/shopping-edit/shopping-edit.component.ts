@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter, Rendere
 
 import { Ingredient } from '../../shared/ingredient.model';
 
+import { ShoppingService } from '../shopping.service';
+
 @Component({
   selector: 'app-shopping-edit',
   templateUrl: './shopping-edit.component.html',
@@ -9,9 +11,7 @@ import { Ingredient } from '../../shared/ingredient.model';
 })
 export class ShoppingEditComponent implements OnInit {
 
-  constructor(private renderer: Renderer2) { }
-
-  @Output() ingredientAdded = new EventEmitter<Ingredient>();
+  constructor(private renderer: Renderer2, private shoppingService: ShoppingService) { }
 
   @ViewChild('nameInput', { static: true }) nameInputRef!: ElementRef;
   @ViewChild('amountInput', { static: true }) amountInputRef!: ElementRef;
@@ -24,7 +24,7 @@ export class ShoppingEditComponent implements OnInit {
     const nameInput = this.nameInputRef.nativeElement as HTMLInputElement;
     const amountInput = this.amountInputRef.nativeElement as HTMLInputElement;
 
-    this.ingredientAdded.emit({
+    this.shoppingService.addIngredient({
       name: nameInput.value,
       amount: parseFloat(amountInput.value)
     });
