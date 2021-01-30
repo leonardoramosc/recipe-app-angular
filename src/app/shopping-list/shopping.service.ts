@@ -4,20 +4,15 @@ import { Ingredient } from '../shared/ingredient.model';
 
 @Injectable()
 export class ShoppingService {
-  private ingredients: Ingredient[] = [
-    {
-      name: 'tomatoes',
-      amount: 10
-    },
-    {
-      name: 'cheese',
-      amount: 0.2
-    }
-  ];
+  private ingredients: Ingredient[] = [];
 
   ingredientsChanged = new EventEmitter<Ingredient[]>();
 
   constructor() { }
+
+  addIngredients(ingredients: Ingredient[]): void {
+    this.ingredients.push(...ingredients);
+  }
 
   addIngredient(ingredient: Ingredient): void {
     this.ingredients.push(ingredient);

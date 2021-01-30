@@ -1,5 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
 
+import { ShoppingService } from '../shopping-list/shopping.service';
+
 import { Recipe } from './recipe.model';
 
 @Injectable()
@@ -29,8 +31,22 @@ export class RecipeService {
     }
   ];
 
+  private selectedRecipe!: Recipe;
+
+  constructor(private shoppingService: ShoppingService) {}
+
   // selectRecipe event for cross component communication
   selectRecipe = new EventEmitter<Recipe>();
+
+  onRecipeSelection(recipe: Recipe): void {
+    this.selectedRecipe = recipe;
+    this.selectRecipe.emit(this.selectedRecipe);
+  }
+
+  getSelectedRecipe(): Recipe {
+    const selectedRecipe = this.selectedRecipe;
+    return selectedRecipe;
+  }
 
   getRecipes(): Recipe[] {
     // Use slice method to return a new array and not the reference to the original
