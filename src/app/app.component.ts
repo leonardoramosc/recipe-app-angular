@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'recipe-app';
+  currentLayout: 'recipes' | 'shopping-list' = 'recipes';
+
+  selectCurrentLayout(layout: 'recipes' | 'shopping-list'): void {
+    this.currentLayout = layout;
+  }
 }

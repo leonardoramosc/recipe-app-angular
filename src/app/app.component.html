@@ -1,9 +1,17 @@
-<app-header></app-header>
+<app-header (selectedItem)="selectCurrentLayout($event)"></app-header>
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <app-recipes></app-recipes>
-      <app-shopping-list></app-shopping-list>
+      <app-recipes *ngIf="currentLayout === 'recipes'"></app-recipes>
+      <app-shopping-list *ngIf="currentLayout === 'shopping-list'"></app-shopping-list>
     </div>
   </div>
 </div>
+
+<!-- Depending on the item selected in the header (Recipes or Shopping List),
+Display the corresponding Component -->
+
+<!-- 1.- Detect which item in the header is selected -->
+<!-- 2.- Send this information to the app-component (parent) -->
+<!-- 3.- Implement the *ngIf directive in the app cmoponent to display either the 
+Recipes or the shopping list -->
