@@ -32,7 +32,9 @@ export class ShoppingService {
   // to the existingIngredients hashmap for future checks.
   // In this way, we are able to avoid the rendering of the same ingredient, so just the amount will
   // be incremented in case that the user add more of the same ingredient.
-  private checkAndAddIngredient(ingredient: Ingredient): void {
+  private checkAndAddIngredient(ing: Ingredient): void {
+    // create a diferent ingredient object so it doesn't modified the original.
+    const ingredient = {...ing};
     // If the ingredient already exist, then find it and sum its current amount with the new amount.
     if (this.existingIngredients[ingredient.name]) {
 
