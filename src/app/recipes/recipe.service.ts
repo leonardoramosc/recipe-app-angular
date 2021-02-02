@@ -9,6 +9,7 @@ import { Recipe } from './recipe.model';
 export class RecipeService {
   private recipes: Recipe[] = [
     {
+      id: 0,
       name: 'Test Recipe',
       description: 'This is a test',
       image: 'https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2015/11/shakshuka-11.jpg',
@@ -19,6 +20,7 @@ export class RecipeService {
       ]
     },
     {
+      id: 1,
       name: 'Pizza',
       description: 'Delicious pizza',
       image: 'https://joyfoodsunshine.com/wp-content/uploads/2016/09/easy-pizza-casserole-recipe-5.jpg',
