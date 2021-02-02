@@ -26,7 +26,7 @@ export class RecipeDetailComponent implements OnInit {
 
       const recipe = this.recipeService.getRecipe(id);
 
-      if(recipe) {
+      if (recipe) {
         this.recipe = recipe;
       }
     });
