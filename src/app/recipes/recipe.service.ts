@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { ShoppingService } from '../shopping-list/shopping.service';
 
@@ -33,28 +33,13 @@ export class RecipeService {
     }
   ];
 
-  private selectedRecipe!: Recipe;
-
-  constructor(private shoppingService: ShoppingService) {}
-
-  // selectRecipe event for cross component communication
-  selectRecipe = new EventEmitter<Recipe>();
-
-  onRecipeSelection(recipe: Recipe): void {
-    this.selectedRecipe = recipe;
-    this.selectRecipe.emit(this.selectedRecipe);
-  }
+  constructor() {}
 
   getRecipe(id: number): Recipe | undefined {
     const recipe = this.recipes.find((r: Recipe) => {
       return r.id === id;
     });
     return recipe;
-  }
-
-  getSelectedRecipe(): Recipe {
-    const selectedRecipe = this.selectedRecipe;
-    return selectedRecipe;
   }
 
   getRecipes(): Recipe[] {

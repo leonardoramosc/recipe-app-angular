@@ -1,4 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 import { Ingredient } from '../shared/ingredient.model';
 
@@ -11,7 +12,7 @@ export class ShoppingService {
   private ingredients: Ingredient[] = [];
   private existingIngredients: ExistingIngredients = {};
 
-  ingredientsChanged = new EventEmitter<Ingredient[]>();
+  ingredientsChanged = new Subject<Ingredient[]>();
 
   constructor() { }
 
@@ -22,7 +23,7 @@ export class ShoppingService {
   addIngredient(ingredient: Ingredient): void {
 
     this.checkAndAddIngredient(ingredient);
-    this.ingredientsChanged.emit(this.ingredients.slice());
+    this.ingredientsChanged.next(this.ingredients.slice());
   }
 
   // checkAndAddIngredient will check if an ingredient is present in the array of ingredients,
