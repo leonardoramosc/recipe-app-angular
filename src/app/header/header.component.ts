@@ -1,6 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-
-type Items = 'recipes' | 'shopping-list';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -10,15 +8,9 @@ type Items = 'recipes' | 'shopping-list';
 
 export class HeaderComponent implements OnInit {
 
-  @Output() selectedItem = new EventEmitter<Items>();
-
   constructor() { }
 
   ngOnInit(): void {
-  }
-
-  onSelectItem(item: Items): void {
-    this.selectedItem.emit(item);
   }
 
 }

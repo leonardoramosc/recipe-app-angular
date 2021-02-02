@@ -7,16 +7,17 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/recipes'
+    redirectTo: '/recipes',
+    pathMatch: 'full'
   },
   {
-    path: '/recipes',
+    path: 'recipes',
     component: RecipesComponent
   },
   {
-    path: '/shopping-list',
+    path: 'shopping-list',
     component: ShoppingListComponent
-  }
+  },
 ];
 
 @NgModule({
