@@ -45,6 +45,13 @@ export class RecipeService {
     this.selectRecipe.emit(this.selectedRecipe);
   }
 
+  getRecipe(id: number): Recipe | undefined {
+    const recipe = this.recipes.find((r: Recipe) => {
+      return r.id === id;
+    });
+    return recipe;
+  }
+
   getSelectedRecipe(): Recipe {
     const selectedRecipe = this.selectedRecipe;
     return selectedRecipe;
