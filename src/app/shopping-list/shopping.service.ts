@@ -26,7 +26,7 @@ export class ShoppingService {
 
   ingredientsChanged = new Subject<Ingredient[]>();
 
-  ingredientSelected = new Subject<Ingredient>();
+  ingredientSelectedToEdit = new Subject<Ingredient>();
 
   constructor() { }
 
@@ -61,6 +61,12 @@ export class ShoppingService {
   }
 
   deleteIngredient(ingredientIndex: number): void {
+
+    const ingredient = this.ingredients[ingredientIndex];
+
+    // remove from existing ingredients
+    const { [ingredient.name]: _, ...existingIngredients } = this.existingIngredients;
+    this.existingIngredients = existingIngredients;
 
     this.ingredients.splice(ingredientIndex, 1);
 

@@ -1,0 +1,17 @@
+.ingredient:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.btn-edit, .btn-delete {
+  font-size: 19px;
+  position: absolute;
+  top: 0;
+}
+
+.btn-edit {
+  right: -50px;
+} 
+
+.btn-delete {
+  right: -100px;
+}

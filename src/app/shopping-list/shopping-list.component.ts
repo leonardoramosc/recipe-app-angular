@@ -26,6 +26,8 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   // in the [disabled] directive.
   selectedIngredients: { [index: number]: Ingredient } | null = null;
 
+  ingredientToEdit!: Ingredient | null;
+
   constructor(private shoppingService: ShoppingService) { }
 
   ngOnInit(): void {
@@ -92,5 +94,24 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   onIngredientsDeleted(): void {
 
     this.selectedIngredients = null;
+  }
+
+  editIngredient(ingredient: Ingredient): void {
+
+    if (this.ingredientToEdit && ingredient.name === this.ingredientToEdit.name) {
+
+      this.ingredientToEdit = null;
+
+    } else {
+
+      this.ingredientToEdit = ingredient;
+      this.shoppingService.ingredientSelectedToEdit.next(ingredient);
+    }
+
+  }
+
+  deleteIngredient(index: number): void {
+
+    this.shoppingService.deleteIngredient(index);
   }
 }
