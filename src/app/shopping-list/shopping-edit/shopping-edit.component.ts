@@ -32,6 +32,8 @@ export class ShoppingEditComponent implements OnInit {
       amount: new FormControl('', [Validators.required])
     });
 
+    this.form.controls['name'].setValue('jamooon');
+
   }
   addIngredient(): void {
 

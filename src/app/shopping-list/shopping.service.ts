@@ -26,6 +26,8 @@ export class ShoppingService {
 
   ingredientsChanged = new Subject<Ingredient[]>();
 
+  ingredientSelected = new Subject<Ingredient>();
+
   constructor() { }
 
   addIngredients(ingredients: Ingredient[]): void {

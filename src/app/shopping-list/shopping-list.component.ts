@@ -51,40 +51,42 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
       const { [ingredientIndex]: _, ...newSelectedIngredients } = this.selectedIngredients;
 
-      this.selectedIngredients = newSelectedIngredients;
+      if (Object.keys(newSelectedIngredients).length === 0) {
 
-    }
+        this.selectedIngredients = null;
 
-    // Append the new ingredient to the list if the selectedIngredients is different to null,
-    // meaning that the selectedIngredients already have others ingredients.
-    if (this.selectedIngredients) {
+      } else {
+
+        this.selectedIngredients = newSelectedIngredients;
+      }
+
+    } else if (this.selectedIngredients && Object.keys(this.selectedIngredients).length === 0) {
+      // if there is not any ingredients then set it to null, this is because if there is not any
+      // ingredient, the selectedIngredients will be equal to an empty object and an empty object
+      // is not a nulish value, so remember that we need to be able to set the selectedIngredients
+      // to a nulish value in order to be able to disable the delete button in the shopping edit
+      // if there is not any selected ingredient. This functionality is required so in this way,
+      // that delete button only can be used if there is an ingredient selected.
+
+      this.selectedIngredients = null;
+
+    } else if (this.selectedIngredients && this.selectedIngredients[ingredientIndex] === undefined) {
+
+      // Append the new ingredient to the list if the selectedIngredients is different to null,
+      // meaning that the selectedIngredients already have others ingredients.
 
       this.selectedIngredients = {
         [ingredientIndex]: ingredient,
         ...this.selectedIngredients
       };
 
-    }
+    } else if (!this.selectedIngredients) {
 
-    // If selectedIngredients is null, then create the object with the new ingredient.
-    if (!this.selectedIngredients) {
-
+      // If selectedIngredients is null, then create the object with the new ingredient.
       this.selectedIngredients = {
         [ingredientIndex]: ingredient
       };
     }
-
-    // if there is not any ingredients then set it to null, this is because if there is not any
-    // ingredient, the selectedIngredients will be equal to an empty object and an empty object
-    // is not a nulish value, so remember that we need to be able to set the selectedIngredients
-    // to a nulish value in order to be able to disable the delete button in the shopping edit
-    // if there is not any selected ingredient. This functionality is required so in this way,
-    // that delete button only can be used if there is an ingredient selected.
-    if (Object.keys(this.selectedIngredients).length === 0) {
-
-      this.selectedIngredients = null;
-    }
-
   }
 
   onIngredientsDeleted(): void {
