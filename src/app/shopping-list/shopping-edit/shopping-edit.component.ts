@@ -1,4 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter, Renderer2 } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 import { Ingredient } from '../../shared/ingredient.model';
 
@@ -11,27 +13,46 @@ import { ShoppingService } from '../shopping.service';
 })
 export class ShoppingEditComponent implements OnInit {
 
-  constructor(private renderer: Renderer2, private shoppingService: ShoppingService) { }
+  constructor(private shoppingService: ShoppingService) { }
 
-  @ViewChild('nameInput', { static: true }) nameInputRef!: ElementRef;
-  @ViewChild('amountInput', { static: true }) amountInputRef!: ElementRef;
+  ingredientsChangeSubs!: Subscription;
+
+  form!: FormGroup;
+
+  @Input() selectedIngredients!: { [index: number]: Ingredient } | null;
+
+  @Input() areThereIngredients!: boolean;
+
+  @Output() ingredientsDeleted = new EventEmitter();
 
   ngOnInit(): void {
-  }
 
-  addIngredient(e: Event): void {
-    e.preventDefault();
-    const nameInput = this.nameInputRef.nativeElement as HTMLInputElement;
-    const amountInput = this.amountInputRef.nativeElement as HTMLInputElement;
-
-    this.shoppingService.addIngredient({
-      name: nameInput.value,
-      amount: parseFloat(amountInput.value)
+    this.form = new FormGroup({
+      name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      amount: new FormControl('', [Validators.required])
     });
 
-    // Clear the inputs
-    this.renderer.setProperty(nameInput, 'value', '');
-    this.renderer.setProperty(amountInput, 'value', '');
+  }
+  addIngredient(): void {
+
+    this.shoppingService.addIngredient(this.form.value);
+
+    this.form.reset();
+  }
+
+  deleteIngredients(): void {
+
+    if (this.selectedIngredients) {
+      this.shoppingService.deleteIngredients(this.selectedIngredients);
+    }
+
+    this.ingredientsDeleted.emit();
+
+  }
+
+  clearIngredients(): void {
+
+    this.shoppingService.clearIngredients();
   }
 
 }

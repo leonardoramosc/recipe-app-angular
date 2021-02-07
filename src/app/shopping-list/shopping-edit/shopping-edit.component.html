@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-xs-12">
-    <form>
+    <form [formGroup]="form">
       <div class="row">
         <div class="col-sm-5 form-group">
           <label for="name">Name</label>
@@ -8,7 +8,8 @@
           type="text" 
           id="name" 
           class="form-control"
-          #nameInput>
+          formControlName="name"
+          >
         </div>
         <div class="col-sm-2 form-group">
           <label for="amount">Amount</label>
@@ -16,18 +17,39 @@
             type="number" 
             id="amount" 
             class="form-control"
-            #amountInput>
+            formControlName="amount"
+            >
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12">
           <button 
             class="btn btn-success button-control" 
-            type="submit"
-            (click)="addIngredient($event)"
-          >Add</button>
-          <button class="btn btn-danger button-control" type="button">Delete</button>
-          <button class="btn btn-primary button-control" type="button">Clear</button>
+            type="button"
+            (click)="addIngredient()"
+            [disabled]="!form.valid"
+          >
+            Add
+          </button>
+
+          <button 
+            class="btn btn-danger button-control" 
+            type="button"
+            (click)="deleteIngredients()"
+            [disabled]="!selectedIngredients"
+          >
+            Delete
+          </button>
+
+          <button 
+            class="btn btn-primary button-control" 
+            type="button"
+            (click)="clearIngredients()"
+            [disabled]="!areThereIngredients"
+          >
+            Clear
+          </button>
+
         </div>
       </div>
     </form>
